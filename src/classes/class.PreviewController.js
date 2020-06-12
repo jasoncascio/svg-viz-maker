@@ -1,4 +1,9 @@
+/**
+ * Preview Controller
+ */
 import SVG from './class.SVG';
+
+
 
 export default class PreviewController {
     constructor(model, view) {
@@ -9,6 +14,9 @@ export default class PreviewController {
         // File Reader
         this._fileReader = new FileReader();
         this._fileReader.addEventListener('load', evt => this.processSvgXml(evt.target.result));
+
+        // SVG Segment Click Handler
+        this._handleSvgClick = evt => this._model.setVizComponentElement(evt.target);
 
         // Event Handlers
         view.on('clickStartOverButton', () => this.startOver());
@@ -30,20 +38,18 @@ export default class PreviewController {
     }
 
     processSvgXml(xml) {
-        const previewSVG = (new SVG()).load(xml).scale(this._view.getBoundingClientRect());
+        // const previewSVG = (new SVG()).load(xml).scale(this._view.getBoundingClientRect());
 
-        // Add Event Listeners
-        ['circle', 'polyline', 'polygon', 'path', 'line', 'ellipse', 'rect'].forEach(componentType => {
-            Array.from(previewSVG.getSvg().getElementsByTagName(componentType)).forEach(component =>
-                component.addEventListener('click', evt => this.receiveSvgClick(evt))
-            );
-        });
+        // // Add Event Listeners
+        // ['circle', 'polyline', 'polygon', 'path', 'line', 'ellipse', 'rect'].forEach(componentType => {
+        //     Array.from(previewSVG.getSvg().getElementsByTagName(componentType)).forEach(component =>
+        //         component.addEventListener('click', evt => this._handleSvgClick(evt))
+        //     );
+        // });
 
-        this._model.setPreviewSVG(previewSVG);
-    }
+        // this._model.setPreviewSVG(previewSVG);
 
-    receiveSvgClick(evt) {
-        this._model.setVizComponentElement(evt.target);
+        this._model.buildPreviewSvg(xml, this._view.getBoundingClientRect(), this._handleSvgClick);
     }
 
     downloadFile() {

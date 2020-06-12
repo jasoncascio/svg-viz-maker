@@ -1,4 +1,9 @@
+/**
+ * Inspector View
+ */
 import _EventEmitter from './class._EventEmitter';
+
+
 
 export default class InspectorView extends _EventEmitter {
     constructor(model, elements) {
@@ -49,7 +54,6 @@ export default class InspectorView extends _EventEmitter {
             inspSvg.appendChild(vcl.cloneNode(true)); // Send a clone!
             this._elements.inspectorRenderContainer.appendChild(inspSvg);
 
-            console.log(this._elements.inspectorRenderContainer);
         }
     }
 }

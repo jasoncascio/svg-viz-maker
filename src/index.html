@@ -1,165 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viz Builder</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viz Builder</title>
 </head>
+
 <body>
-    <section class="section">
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="https://looker.com">
-            <img src="images/looker_grey.svg" width="112" height="80"/>
-          </a>
+  <section class="section">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://looker.com">
+          <img src="images/looker_grey.svg" width="112" height="80" />
+        </a>
+      </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">Home</a>
+          <a class="navbar-item">Documentation</a>
         </div>
-  
-        <div class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item">Home</a>
-            <a class="navbar-item">Documentation</a>
+    </nav>
+
+    <div class="columns">
+      <div class="column is-four-fifths">
+        <article class="panel is-info is-fullwidth">
+          <span>
+            <p class="panel-heading">
+              SVG
+            </p>
+          </span>
+          <div class="panel-block render-container preview" id="c-previewRenderContainer"></div>
+        </article>
+        <div class="level">
+          <div class="file has-name">
+            <label class="file-label">
+              <input class="file-input" type="file" id="c-fileSelector">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Choose a file…
+                </span>
+              </span>
+              <span class="file-name" id="c-fileName">
+                None selected
+              </span>
+            </label>
           </div>
-      </nav>
-  
-      <div class="columns">
-        <div class="column is-four-fifths">
-          <article class="panel is-info is-fullwidth">
-            <span>
-              <p class="panel-heading">
-                SVG
-              </p>
-            </span>
-            <div class="panel-block render-container preview" id="previewRenderContainer"></div>
-          </article>
-          <div class="level">
-            <div class="file has-name">
-              <label class="file-label">
-                <input class="file-input" type="file" id="fileSelector">
-                <span class="file-cta">
-                  <span class="file-icon">
-                    <i class="fas fa-upload"></i>
-                  </span>
-                  <span class="file-label">
-                    Choose a file…
-                  </span>
+          <div class="file">
+            <label class="file-label">
+              <input id="c-startOverButton" class="file-input" type="button">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-trash-alt"></i>
                 </span>
-                <span class="file-name" id="fileName">
-                  None selected
+                <span class="file-label">
+                  Start Over
                 </span>
-              </label>
-            </div>
-            <div class="file">
-              <label class="file-label">
-                <input id="startOverButton" class="file-input" type="button">
-                <span class="file-cta">
-                  <span class="file-icon">
-                    <i class="fas fa-trash-alt"></i>
-                  </span>
-                  <span class="file-label">
-                    Start Over
-                  </span>
-                </span>
-              </label>
-            </div>
-            <div class="file">
-              <label class="file-label">
-                <input id="downloadButton" class="file-input" type="button">
-                <span class="file-cta">
-                  <span class="file-icon">
-                    <i class="fas fa-download"></i>
-                  </span>
-                  <span class="file-label">
-                    Download JS
-                  </span>
-                </span>
-              </label>
-            </div>
+              </span>
+            </label>
           </div>
-        </div>
-        <div class="column">
-          <article class="panel is-info is-fullwidth">
-            <span>
-              <p class="panel-heading">
-                Inspector
-              </p>
-              <div class="panel-block render-container inspector" id="inspectorRenderContainer"></div>
-            </span>
-            <div class="panel-block">
-              <span class="panel-icon">
-                <i class="fas fa-code" aria-hidden="true"></i>
+          <div class="file">
+            <label class="file-label">
+              <input id="c-downloadButton" class="file-input" type="button">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-download"></i>
+                </span>
+                <span class="file-label">
+                  Download JS
+                </span>
               </span>
-              <span id="inspectorVizElementTag" class="has-text-grey-dark">none</span>
-            </div>
-  
-            <!-- Stroke -->
-            <!-- https://www.cssscript.com/demo/color-picker-pro/ -->
-            <!-- <div class="panel-block">
-              <span class="panel-icon">
-                <i class="fas fa-tag" aria-hidden="true"></i>
-              </span>
-              <div class="control" style="padding-right:5px;">
-                <input id="inspectorVizSegIdInput" class="input is-small is-fullwidth" type="text"
-                  placeholder="add name">
-              </div>
-              <a id="inspectorVizSegIdInputClearControl" class="delete" style="visibility:hidden;"></a>
-            </div> -->
-  
-            <!-- Viz Id -->
-            <div class="panel-block">
-              <span class="panel-icon">
-                <i class="fas fa-tag" aria-hidden="true"></i>
-              </span>
-              <!-- <div class="field"> -->
-              <div class="control" style="padding-right:5px;">
-                <input id="inspectorVizSegIdInput" class="input is-small is-fullwidth" type="text"
-                  placeholder="add name">
-              </div>
-              <!-- </div> -->
-              <a id="inspectorVizSegIdInputClearControl" class="delete" style="visibility:hidden;"></a>
-            </div>
-          </article>
+            </label>
+          </div>
         </div>
       </div>
-    </section>
-  
-  </body>
-</html>
+      <div class="column">
+        <article class="panel is-info is-fullwidth">
+          <span>
+            <p class="panel-heading">
+              Inspector
+            </p>
+            <div class="panel-block render-container inspector" id="c-inspectorRenderContainer"></div>
+          </span>
+          <div class="panel-block">
+            <span class="panel-icon">
+              <i class="fas fa-code" aria-hidden="true"></i>
+            </span>
+            <span id="c-inspectorVizElementTag" class="has-text-grey-dark">none</span>
+          </div>
 
+          <!-- Stroke -->
+          <!-- https://www.cssscript.com/demo/color-picker-pro/ -->
+          <!-- <div class="panel-block">
+              <span class="panel-icon">
+                <i class="fas fa-tag" aria-hidden="true"></i>
+              </span>
+              <div class="control" style="padding-right:5px;">
+                <input id="c-inspectorVizSegIdInput" class="input is-small is-fullwidth" type="text"
+                  placeholder="add name">
+              </div>
+              <a id="c-inspectorVizSegIdInputClearControl" class="delete" style="visibility:hidden;"></a>
+            </div> -->
 
-<html>
+          <!-- Viz Id -->
+          <div class="panel-block">
+            <span class="panel-icon">
+              <i class="fas fa-tag" aria-hidden="true"></i>
+            </span>
+            <!-- <div class="field"> -->
+            <div class="control" style="padding-right:5px;">
+              <input id="c-inspectorVizSegIdInput" class="input is-small is-fullwidth" type="text" placeholder="add name">
+            </div>
+            <!-- </div> -->
+            <a id="c-inspectorVizSegIdInputClearControl" class="delete" style="visibility:hidden;"></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-<head>
-  <script src="svg-vizinator.js"></script>
-  <script>
-
-    document.addEventListener("DOMContentLoaded", () => {
-
-      const uiElements = {
-        //Inspector
-        inspectorRenderContainer: document.getElementById('inspectorRenderContainer'),
-        inspectorVizSegIdInput: document.getElementById('inspectorVizSegIdInput'),
-        inspectorVizElementTag: document.getElementById('inspectorVizElementTag'),
-        inspectorVizSegIdInputClearControl: document.getElementById('inspectorVizSegIdInputClearControl'),
-
-        //Controls
-        fileSelector: document.getElementById('fileSelector'),
-        startOverButton: document.getElementById('startOverButton'),
-        downloadButton: document.getElementById('downloadButton'),
-
-        //Display
-        previewRenderContainer: document.getElementById('previewRenderContainer'),
-        fileName: document.getElementById('fileName')
-      };
-
-      try {
-        const app = init(uiElements);
-      } catch (e) {
-        alert(e);
-      }
-    });
-  </script>
-</head>
-
-
+</body>
 
 </html>

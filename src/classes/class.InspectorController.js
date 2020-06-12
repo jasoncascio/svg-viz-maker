@@ -1,3 +1,7 @@
+/**
+ * Inspector Controller
+ */
+
 class InspectorController {
     constructor(model, view) {
         // Data

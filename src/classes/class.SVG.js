@@ -3,7 +3,7 @@ export default class SVG {
         this._domParser = new DOMParser();
         this._isScaled = false;
         // this._viewBox = null;
-        this._svg;
+        this._svg = null;
     }
 
     reset() {
@@ -16,6 +16,15 @@ export default class SVG {
     load(xml) {
         this.reset();
         this._svg = this._domParser.parseFromString(xml, 'image/svg+xml').documentElement;
+        return this;
+    }
+
+    setListeners(callback) {
+        ['circle', 'polyline', 'polygon', 'path', 'line', 'ellipse', 'rect'].forEach(componentType => {
+            [...this._svg.getElementsByTagName(componentType)].forEach(component =>
+                component.addEventListener('click', callback)
+            );
+        });
         return this;
     }
 

@@ -1,4 +1,12 @@
+/**
+ * Preview View
+ */
 import _EventEmitter from './class._EventEmitter';
+
+/**
+ * TODO
+ *  1. magnifier? //https://mark-rolich.github.io/Magnifier.js/
+ */
 
 export default class PreviewView extends _EventEmitter {
     constructor(model, elements) {
@@ -24,8 +32,6 @@ export default class PreviewView extends _EventEmitter {
     }
 
     updateFileName(fileName) {
-        console.log('firing');
-        console.log(this._elements);
         this._elements.fileName.innerHTML = fileName;
     }
 
