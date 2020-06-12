@@ -1,12 +1,9 @@
-<!-- import 'bulma/css/bulma.css' -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Viz Builder</title>
 </head>
 <body>
     <section class="section">
@@ -32,7 +29,7 @@
                 SVG
               </p>
             </span>
-            <div class="panel-block render-container" id="previewRenderContainer" style="height:500px"></div>
+            <div class="panel-block render-container preview" id="previewRenderContainer"></div>
           </article>
           <div class="level">
             <div class="file has-name">
@@ -85,7 +82,7 @@
               <p class="panel-heading">
                 Inspector
               </p>
-              <div class="panel-block render-container" id="inspectorRenderContainer" style="height:200px"></div>
+              <div class="panel-block render-container inspector" id="inspectorRenderContainer"></div>
             </span>
             <div class="panel-block">
               <span class="panel-icon">
@@ -132,21 +129,6 @@
 <html>
 
 <head>
-  <link rel="stylesheet" type="text/css" href="bulma.min.css">
-  <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.css">
-  <style>
-    .render-container {
-      background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
-      background-size: 20px 20px;
-      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-      /* background-color: rgb(228, 228, 228); */
-      width: 100%;
-      /* height: 50%; */
-      display: flex;
-      align-content: center;
-      justify-content: center;
-    }
-  </style>
   <script src="svg-vizinator.js"></script>
   <script>
 
