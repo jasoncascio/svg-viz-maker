@@ -30,7 +30,7 @@ export default class PreviewController {
     }
 
     startOver() {
-        this._model.startOver();
+        this._model.initialize();
     }
 
     updateFileName(fileName) {
@@ -38,22 +38,11 @@ export default class PreviewController {
     }
 
     processSvgXml(xml) {
-        // const previewSVG = (new SVG()).load(xml).scale(this._view.getBoundingClientRect());
-
-        // // Add Event Listeners
-        // ['circle', 'polyline', 'polygon', 'path', 'line', 'ellipse', 'rect'].forEach(componentType => {
-        //     Array.from(previewSVG.getSvg().getElementsByTagName(componentType)).forEach(component =>
-        //         component.addEventListener('click', evt => this._handleSvgClick(evt))
-        //     );
-        // });
-
-        // this._model.setPreviewSVG(previewSVG);
-
         this._model.buildPreviewSvg(xml, this._view.getBoundingClientRect(), this._handleSvgClick);
     }
 
     downloadFile() {
-        console.log(this._model._previewSVG.export());
+        console.log(this._model.getSvg());
     }
     /**
      * TODO:

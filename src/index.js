@@ -17,10 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
         const model = new Model();
-        const previewView = new PreviewView(model, uiElements);
-        const previewController = new PreviewController(model, previewView);
-        const inspectorView = new InspectorView(model, uiElements);
-        const inspectorController = new InspectorController(model, inspectorView);
+        const previewController = new PreviewController(model, new PreviewView(model, uiElements));
+        const inspectorController = new InspectorController(model, new InspectorView(model, uiElements));
+        model.initialize();
     } catch (e) {
         alert(e);
     }

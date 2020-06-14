@@ -2,20 +2,78 @@ export default class SVG {
     constructor() {
         this._domParser = new DOMParser();
         this._isScaled = false;
-        // this._viewBox = null;
         this._svg = null;
+        this._origSvgNode = null;
+
+        this._setEmptySvg();
+    }
+
+    _setEmptySvg() {
+        this._svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        this._origSvgNode = null;
+        return this;
+    }
+
+    _appendChild(val) {
+        this._svg.appendChild(val);
+        return this;
+    }
+
+    getTagName() {
+        return this._origSvgNode !== null ? this._origSvgNode.tagName : 'none';
+    }
+
+    svgIsSet() {
+        return this._svg.childNodes.length > 0;
     }
 
     reset() {
         this._originalWidth = null;
         this._originalHeight = null;
-        this._svg = null;
+        this._svg.remove();
+        this._setEmptySvg();
         return this;
     }
 
-    load(xml) {
+    getAttributeValues(attr) {
+        const a = this._svg.querySelectorAll(`[${attr}]`);
+        // const a = this._svg.querySelectorAll("[id^='c-']");
+        console.log(a);
+    }
+
+    setAttribute(attr, val) {
+        switch (toString.call(val)) {
+            case '[object Undefined]':
+            case '[object Null]':
+                this._origSvgNode.removeAttribute(attr);
+                break;
+            default:
+                this._origSvgNode.setAttribute(attr, val);
+        }
+        return this;
+    }
+
+    getAttribute(attr) {
+        return this._origSvgNode !== null ? this._origSvgNode.getAttribute(attr) : null;
+    }
+
+    load(val) {
         this.reset();
-        this._svg = this._domParser.parseFromString(xml, 'image/svg+xml').documentElement;
+
+        switch(toString.call(val)) {
+            case '[object String]':
+                this._svg = this._domParser.parseFromString(val, 'image/svg+xml').documentElement;
+                this._origSvgNode = this._svg;
+                break;
+            case '[object SVGSVGElement]':
+                this._svg = val.cloneNode(true);
+                this._origSvgNode = val;
+                break;
+            default:
+                this._setEmptySvg()._appendChild(val.cloneNode(true));
+                this._origSvgNode = val;
+        }
+
         return this;
     }
 

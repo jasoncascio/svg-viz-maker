@@ -10,25 +10,22 @@ export default class Model extends _EventEmitter {
     constructor() {
         super();
         this._fileName = null;
-        this._previewSVG = new SVG();
-        this._vizComponentElement = null;
+        this._previewSvg = new SVG();
+        this._vizComponentSvg = new SVG();
+
+        // this._selec
     }
 
-    startOver() {
-        this.setFileName('None selected')
-            .resetSvg()
-            .setVizComponentElement(null);
-        return this;
-    }
-
-    resetSvg() {
-        this._previewSVG.reset();
+    initialize() {
+        this.setFileName('None selected');        
+        this.emit('previewSvgUpdated', this._previewSvg.reset());
+        this.emit('vizComponentElementUpdated', this._vizComponentSvg.reset());
         return this;
     }
 
     buildPreviewSvg(xml, boundingRect, callback) {
-        this._previewSVG.load(xml).scale(boundingRect).setListeners(callback);
-        this.emit('previewSvgUpdated', this._previewSVG);
+        this._previewSvg.load(xml).scale(boundingRect).setListeners(callback);
+        this.emit('previewSvgUpdated', this._previewSvg);
         return this;
     }
 
@@ -39,18 +36,20 @@ export default class Model extends _EventEmitter {
     }
 
     setVizComponentElement(vizComponentElement) {
-        this._vizComponentElement = vizComponentElement;
-        this.emit('vizComponentElementUpdated', this._vizComponentElement);
+        this._vizComponentSvg.load(vizComponentElement);
+        this.emit('vizComponentElementUpdated', this._vizComponentSvg);
         return this;
     }
 
     setVizSegId(newVal) {
-        if (toString.call(newVal) === '[object Null]' || newVal === '') {
-            this._vizComponentElement.removeAttribute('vizSegId');
-        } else {
-            this._vizComponentElement.setAttribute('vizSegId', newVal);
-        }
-        this.emit('vizComponentElementUpdated', this._vizComponentElement);
+        this._vizComponentSvg.setAttribute('vizSegId', newVal);
+    }
+
+    getForwardToVizSegIds() {
+        return this._previewSvg.getAttributeValues('forwardToVi');
+    }
+    getSvg() {
+        return this._previewSvg.export();
     }
 
 }

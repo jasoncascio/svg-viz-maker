@@ -3,10 +3,6 @@
  */
 import _EventEmitter from './class._EventEmitter';
 
-/**
- * TODO
- *  1. magnifier? //https://mark-rolich.github.io/Magnifier.js/
- */
 
 export default class PreviewView extends _EventEmitter {
     constructor(model, elements) {
@@ -36,12 +32,7 @@ export default class PreviewView extends _EventEmitter {
     }
 
     updateSvgElement(svg) {
-        if (this._elements.previewRenderContainer.childNodes[0]) {
-            this._elements.previewRenderContainer.removeChild(this._elements.previewRenderContainer.childNodes[0]);
-        }
-        if (toString.call(svg) !== '[object Null]') {
-            this._elements.previewRenderContainer.appendChild(svg.getSvg());
-        }
+        this._elements.previewRenderContainer.appendChild(svg.getSvg());
     }
 
     getBoundingClientRect() {
@@ -49,3 +40,8 @@ export default class PreviewView extends _EventEmitter {
     }
 
 }
+
+/**
+ * TODO
+ *  1. magnifier? //https://mark-rolich.github.io/Magnifier.js/
+ */
