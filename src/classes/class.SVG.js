@@ -1,9 +1,13 @@
+const svgPanZoom = require('svg-pan-zoom');
+
+
 export default class SVG {
     constructor() {
         this._domParser = new DOMParser();
         this._isScaled = false;
         this._svg = null;
         this._origSvgNode = null;
+        this._panZoom = null;
 
         this._setEmptySvg();
     }
@@ -19,8 +23,17 @@ export default class SVG {
         return this;
     }
 
-    getTagName() {
-        return this._origSvgNode !== null ? this._origSvgNode.tagName : 'none';
+    _getNode(fromClone) {
+        if (fromClone) {
+            return this.svgIsSet() ? this._svg.childNodes[0] : this._svg;
+        } else {
+            return this._origSvgNode;
+        }
+    }
+
+    getTagName(fromClone) {
+        const node = this._getNode(fromClone);
+        return node !== null ? node.tagName : 'none';
     }
 
     svgIsSet() {
@@ -35,29 +48,52 @@ export default class SVG {
         return this;
     }
 
-    getAttributeValues(attr) {
-        const a = this._svg.querySelectorAll(`[${attr}]`);
-        // const a = this._svg.querySelectorAll("[id^='c-']");
-        console.log(a);
+    getAttributeValues(attr, fromClone) {
+        const node = this._getNode(fromClone);
+        return [...node.querySelectorAll(`[${attr}]`)].reduce((acc, el) => {
+            acc.push(el.getAttribute(attr));
+            return acc;
+        }, []);
     }
 
-    setAttribute(attr, val) {
+    setAttribute(attr, val, onClone) {
+        const node = this._getNode(onClone);
         switch (toString.call(val)) {
             case '[object Undefined]':
             case '[object Null]':
-                this._origSvgNode.removeAttribute(attr);
+                node.removeAttribute(attr);
                 break;
             default:
-                this._origSvgNode.setAttribute(attr, val);
+                node.setAttribute(attr, val);
         }
         return this;
     }
 
-    getAttribute(attr) {
-        return this._origSvgNode !== null ? this._origSvgNode.getAttribute(attr) : null;
+    getAttribute(attr, fromClone) {
+        const node = this._getNode(fromClone);
+        return node !== null ? node.getAttribute(attr) : null;
     }
 
-    load(val) {
+    _normalizeSegmentAttr(origSeg, clone, attr, def) {
+        if (!clone.getAttribute(attr)) {
+            let parent = origSeg.closest(`[${attr}]`) || origSeg.parentNode;
+            if (parent.nodeName !== 'svg') {
+                clone.setAttribute(attr, parent.getAttribute(attr) || def);
+            }
+        }
+        return clone;
+    }
+
+    _normalizeSegment(origSeg, clone) {
+        this._normalizeSegmentAttr(origSeg, clone, 'stroke', 'black');
+        this._normalizeSegmentAttr(origSeg, clone, 'stroke-opacity', 1.0);
+        this._normalizeSegmentAttr(origSeg, clone, 'stroke-width', 1.0);
+        this._normalizeSegmentAttr(origSeg, clone, 'fill', 'black');
+        this._normalizeSegmentAttr(origSeg, clone, 'fill-opacity', 1.0);
+        return clone;
+    }
+
+    load(val, addPanZoom) {
         this.reset();
 
         switch(toString.call(val)) {
@@ -70,15 +106,29 @@ export default class SVG {
                 this._origSvgNode = val;
                 break;
             default:
-                this._setEmptySvg()._appendChild(val.cloneNode(true));
+                this._setEmptySvg()._appendChild(this._normalizeSegment(val, val.cloneNode(true)));
                 this._origSvgNode = val;
+        }
+
+        if (addPanZoom) {
+            if (this._panZoom) {
+                this._panZoom.destroy();
+            }
+            this._panZoom = svgPanZoom(svg.getSvg(), {
+                zoomEnabled: true,
+                controlIconsEnabled: true,
+                fit: true,
+                center: true
+            });
         }
 
         return this;
     }
 
+
+
     setListeners(callback) {
-        ['circle', 'polyline', 'polygon', 'path', 'line', 'ellipse', 'rect'].forEach(componentType => {
+        ['circle', 'polyline', 'polygon', 'path', 'line', 'ellipse', 'rect', 'text'].forEach(componentType => {
             [...this._svg.getElementsByTagName(componentType)].forEach(component =>
                 component.addEventListener('click', callback)
             );
@@ -87,9 +137,6 @@ export default class SVG {
     }
 
     scale(boundingBox) {
-
-        //SET viewBox
-
 
         // Bounding Box
         const bbWidth = boundingBox.width - 10;
@@ -119,7 +166,7 @@ export default class SVG {
         // Set width & height attributes of svg
         if (this._svg.width.baseVal.valueAsString === '100%') { // 1=>px
             if (!vbWidth) {
-                throw `SVG has no width value or viewBox - unable to render.`;
+                //throw `SVG has no width value or viewBox - unable to render.`;
             }
             if (bbAspectRatio >= 1) {   // bb is wide
                 if (vbAspectRatio >= 1) {   // bb & vb are wide => bb width is the limiter
@@ -147,8 +194,20 @@ export default class SVG {
         return this._svg;
     }
 
+    _removeSvgPanZoomArtifacts(svg) { // use svgPanZoom destroy?
+        svg.getElementById('svg-pan-zoom-controls').remove();
+        svg.getElementById('svg-pan-zoom-controls-styles').remove();
+        [...svg.getElementsByTagName('defs')].forEach(el => {
+            if (el.childNodes.length === 0) {
+                el.remove();
+            }
+        });
+        return svg;
+    }
+
     export() {
-        const svg = this._svg.cloneNode(true);
+        const svg = this._removeSvgPanZoomArtifacts(this._svg.cloneNode(true));
+
         if (this._isScaled) {
             svg.removeAttribute('width');
             svg.removeAttribute('height');

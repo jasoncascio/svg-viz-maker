@@ -10,7 +10,7 @@ export default class _EventEmitter {
         return this;
     }
     emit(evt, arg) {
-        if(C.logEvents) {
+        if (C.logEvents) {
             console.log(`${evt} => ${JSON.stringify(arg)}`);
         }
         (this._events[evt] || []).slice().forEach(lsn => lsn(arg));

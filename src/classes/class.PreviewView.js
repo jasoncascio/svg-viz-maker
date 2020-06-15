@@ -2,7 +2,9 @@
  * Preview View
  */
 import _EventEmitter from './class._EventEmitter';
-
+// const z = require('../../node_modules/svg-pan-zoom/dist/svg-pan-zoom.js');
+// const svgPanZoome = z();
+// const svgPanZoom = require('svg-pan-zoom');
 
 export default class PreviewView extends _EventEmitter {
     constructor(model, elements) {
@@ -33,6 +35,14 @@ export default class PreviewView extends _EventEmitter {
 
     updateSvgElement(svg) {
         this._elements.previewRenderContainer.appendChild(svg.getSvg());
+        // if (svg.svgIsSet()) {
+        //     svgPanZoom(svg.getSvg(), {
+        //         zoomEnabled: true,
+        //         controlIconsEnabled: true,
+        //         fit: true,
+        //         center: true
+        //     });
+        // }
     }
 
     getBoundingClientRect() {
@@ -40,8 +50,3 @@ export default class PreviewView extends _EventEmitter {
     }
 
 }
-
-/**
- * TODO
- *  1. magnifier? //https://mark-rolich.github.io/Magnifier.js/
- */

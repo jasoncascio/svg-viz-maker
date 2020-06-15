@@ -11,7 +11,7 @@ export default class InspectorView extends _EventEmitter {
         this._model = model;
         this._elements = elements;
 
-        model.on('vizComponentElementUpdated', vcl => this.updateVizComponentElement(vcl));
+        model.on('vizComponentElementUpdated', vcl => this._updateVizComponentElement(vcl));
         
         this._elements.inspectorVizSegIdInput.addEventListener('keydown', evt => {
             evt.returnValue = /[a-zA-Z0-9_&\s\-]/gi.test(evt.key);
@@ -39,6 +39,16 @@ export default class InspectorView extends _EventEmitter {
         return this;
     }
 
+    _setInspectorVizStroke(val) {
+        this._elements.inspectorColorStroke.style.background = val || 'none';
+        return this;
+    }
+
+    _setInspectorVizFill(val) {
+        this._elements.inspectorColorFill.style.background = val || 'none';
+        return this;
+    }
+
     _setInspectorVizElementTagName(val) {
         this._elements.inspectorVizElementTag.innerHTML = val;
         return this;
@@ -49,10 +59,14 @@ export default class InspectorView extends _EventEmitter {
         return this;
     }
 
-    updateVizComponentElement(vcl) {
+    _updateVizComponentElement(vcl) { ///***** */
         this._elements.inspectorRenderContainer.appendChild(vcl.getSvg());
+
         this._setInspectorVizElementTagName(vcl.getTagName());
         this._setInspectorVizSegIdInput(vcl.getAttribute('vizSegId'));
+        this._setInspectorVizStroke(vcl.getAttribute('stroke', true));
+        this._setInspectorVizFill(vcl.getAttribute('fill', true));
+
         this._enableInspectorVizSegIdInput(vcl.svgIsSet());
         this._elements.inspectorVizSegIdInput.focus();
     }

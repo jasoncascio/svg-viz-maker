@@ -45,9 +45,14 @@ export default class Model extends _EventEmitter {
         this._vizComponentSvg.setAttribute('vizSegId', newVal);
     }
 
-    getForwardToVizSegIds() {
-        return this._previewSvg.getAttributeValues('forwardToVi');
+    getVizSegIds() {
+        console.log(this._previewSvg.getAttributeValues('vizSegId'));
     }
+
+    // getForwardToVizSegIds() { //forwardToVizSegId
+    //     return this._previewSvg.getAttributeValues('vizSegId');
+    // }
+
     getSvg() {
         return this._previewSvg.export();
     }

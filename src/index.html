@@ -86,38 +86,106 @@
             </p>
             <div class="panel-block render-container inspector" id="c-inspectorRenderContainer"></div>
           </span>
-          <div class="panel-block">
-            <span class="panel-icon">
-              <i class="fas fa-code" aria-hidden="true"></i>
-            </span>
-            <span id="c-inspectorVizElementTag" class="has-text-grey-dark">none</span>
+
+          <!-- Common -->
+          <div id="c-inspectorCommonBlock">
+
+            <!-- Element Tag Name -->
+            <div class="panel-block">
+              <span class="panel-icon">
+                <i class="fas fa-code" aria-hidden="true"></i>
+              </span>
+              <span id="c-inspectorVizElementTag" class="has-text-grey-dark">none</span>
+            </div>
+
+            <!-- Element Fill Color -->
+            <div class="panel-block">
+              <span class="panel-icon">
+                <i class="fas fa-fill-drip" aria-hidden="true"></i>
+              </span>
+              <span>
+                <div class="inspector-color-box">
+                  <div class="inspector-color-null">
+                    <div id="c-inspectorColorFill" class="inspector-color"></div>
+                  </div>
+                </div>
+              </span>
+            </div>
+
+            <!-- Element Stroke Color -->
+            <div class="panel-block">
+              <span class="panel-icon">
+                <i class="fas fa-draw-polygon" aria-hidden="true"></i>
+              </span>
+              <span>
+                <div class="inspector-color-box">
+                  <div class="inspector-color-null">
+                    <div id="c-inspectorColorStroke" class="inspector-color"></div>
+                  </div>
+                </div>
+              </span>
+            </div>
+
           </div>
 
-          <!-- Stroke -->
-          <!-- https://www.cssscript.com/demo/color-picker-pro/ -->
-          <!-- <div class="panel-block">
+
+          <div class="panel-block">
+            <span class="panel-icon">
+              <i class="fas fa-cogs" aria-hidden="true"></i>
+            </span>
+            <div class="control" style="padding-right:5px;">
+              <div class="select is-small">
+                <select id="c-inspectorVizSegTypeSelector">
+                  <option value="viz-segment">Viz Segment</option>
+                  <option value="click-forwarder">Click Forwarder</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- viz-segment control block -->
+          <div id="c-vizSegmentControlBlock">
+            <div class="panel-block">
               <span class="panel-icon">
                 <i class="fas fa-tag" aria-hidden="true"></i>
               </span>
               <div class="control" style="padding-right:5px;">
                 <input id="c-inspectorVizSegIdInput" class="input is-small is-fullwidth" type="text"
-                  placeholder="add name">
+                  placeholder="add name" disabled>
               </div>
               <a id="c-inspectorVizSegIdInputClearControl" class="delete" style="visibility:hidden;"></a>
-            </div> -->
-
-          <!-- Viz Id -->
-          <div class="panel-block">
-            <span class="panel-icon">
-              <i class="fas fa-tag" aria-hidden="true"></i>
-            </span>
-            <!-- <div class="field"> -->
-            <div class="control" style="padding-right:5px;">
-              <input id="c-inspectorVizSegIdInput" class="input is-small is-fullwidth" type="text" placeholder="add name" disabled>
             </div>
-            <!-- </div> -->
-            <a id="c-inspectorVizSegIdInputClearControl" class="delete" style="visibility:hidden;"></a>
           </div>
+
+          <!-- click-forwarder control block -->
+          <div id="c-clickForwarderControlBlock">
+            <div class="panel-block">
+              <span class="panel-icon">
+                <i class="fas fa-arrow-alt-circle-right" aria-hidden="true"></i>
+              </span>
+              <div class="control" style="padding-right:5px;">
+                <div class="select is-small">
+                  <select id="c-inspectorForwardToVizSegSelector">
+                    <option>Add Values Here</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="panel-block">
+              <span class="panel-icon">
+                <i class="fas fa-adjust" aria-hidden="true"></i>
+              </span>
+              <div class="control" style="padding-right:5px;">
+                <label class="checkbox">
+                  <input id="c-inspectorInvertColorControl" type="checkbox">
+                  Invert Color
+                </label>
+              </div>
+            </div>
+          </div>
+
+
+
         </article>
       </div>
     </div>

@@ -31,3 +31,28 @@ $edInvTransp: 100% - $edTransp;
 .inspector {
     height: 200px;
 }
+
+.inspector-color-box {
+    height:15px;
+    width:15px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #7a7a7a;
+}
+
+.inspector-color-null {
+    height:100%;
+    width:100%;
+    z-index:-1;
+    background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAACe0lEQVR4Xu3d3VHDMAzAcWUFtmEM2IUtmAVemIFZeGKFcqUNpG2aD1uWLeufp1ycO+n0i5wX5TLI5DiIPAwi39NrnNtWYBjDHTFE5ENEvgaRZ9s0iDZW4BdkgvF4XngHpc5DMsxgjJmAUsFk7JA3EXmaiQ+KMcr0HQKKcfHnwv2BnN8loFRGuQABpbKGiNyAgFIXZRYElHood0FAqYOyCAKKPcoqCCi2KJtAQLFD2QwCig3KLhBQyqPsBgGlLEoSCCjlUJJBQCmDkgUCij5KNggouigqIKDooaiBgKKDogoCSj6KOggoeShFQEBJRykGAkoaSlEQUPajFAcBZR+KCQgo21HMQEDZhmIKAso6ijkIKMsoVUBAuY9SDQSUeZSqIKDcolQHAeUSpQkQUP5RmgEB5YTSFAgoDYJER2muQ8bd9CAS8vO6ZkGidkrTIBFRmgeJhuICJBKKG5AoKK5AIqC4A+kdxSVIzyhuQXpFcQ3SI4p7kN5QugDpCaUbkF5QugLpAaU7EO8oXYJ4RukWxCtK1yAeUboH8YYSAsQTShgQLyihQDyghANpHSUkSMsoYUFaRQkN0iJKeJDWUAA5DxO3MksMyDjdffoXV/UBb0AmIC1sX4BcgdRGAWQGpCYKIHdAaqEAsgBSAwWQFRBrFEA2gFiiALIRxAoFkB0gFiiA7AQpjQJIAkhJFEASQUqhAJIBUgIFkEwQbRRAFEA0UQBRAtFCAUQRRAMFEGWQXBRACoDkoABSCCQVBZCCICkogBQG2YsCiAHIAsrLIPI6TQEQI5AZlBuM4z2AGIJMUD6vO2NMAxBjkLVwgKxVyHgdEOOCr4UDZK1Cxus/ZfAfdEXlbRoAAAAASUVORK5CYII=');
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-size: 100% 100%, auto;
+}
+
+.inspector-color {
+    height:100%;
+    width:100%;
+    z-index:1;
+}
+
